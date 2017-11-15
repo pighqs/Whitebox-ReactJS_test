@@ -114,15 +114,15 @@ class Carousel extends React.Component {
 
     render() {
          const carouselDatas = [
-            { dtarget:"slide1", image: "images/slider/slide1_bg.jpg", classN:"flex-active-slide"},
-            { dtarget:"slide2", image: "images/slider/slide2_bg.jpg", classN:""},
-            { dtarget:"slide3", image: "images/slider/slide3_bg.jpg", classN:""},
+            { target:"slide1", image: "images/slider/slide1_bg.jpg", classN:"flex-active-slide"},
+            { target:"slide2", image: "images/slider/slide2_bg.jpg", classN:""},
+            { target:"slide3", image: "images/slider/slide3_bg.jpg", classN:""},
             ];
 
         let carouselList = [];
 
         for (var i = 0; i < carouselDatas.length; i++) {
-            carouselList.push(<CarouselSlide key={"carouselSlides_"+i} dtarget={carouselDatas[i].dtarget} image={carouselDatas[i].image} classN={carouselDatas[i].classN}/>);
+            carouselList.push(<CarouselSlide key={"carouselSlides_"+i} target={carouselDatas[i].target} image={carouselDatas[i].image} classN={carouselDatas[i].classN}/>);
         }
 
         return (
@@ -143,7 +143,7 @@ class CarouselSlide extends React.Component {
 
     render() {
         return (
-            <li data-target={this.props.dtarget} className={this.props.classN}>
+            <li data-target={this.props.target} className={this.props.classN}>
                 <img src={this.props.image} alt="" />
             </li>
             );
