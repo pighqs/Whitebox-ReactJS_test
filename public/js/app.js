@@ -69,7 +69,7 @@ class Slider extends React.Component {
 
         let slides = [];
         for (var i = 0; i < captionDatas.length; i++) {
-            slides.push(<Slide key={"slides_"+i} liClass={captionDatas[i].liClass} classPar1={captionDatas[i].classPar1} classPar2={captionDatas[i].classPar2} classPar3={captionDatas[i].classPar3} classPar4={captionDatas[i].classPar4}
+            slides.push(<Slide key={i} liClass={captionDatas[i].liClass} classPar1={captionDatas[i].classPar1} classPar2={captionDatas[i].classPar2} classPar3={captionDatas[i].classPar3} classPar4={captionDatas[i].classPar4}
                 city={captionDatas[i].city} year={captionDatas[i].year} title={captionDatas[i].title} desc={captionDatas[i].desc}/>);
 
         }
@@ -110,7 +110,20 @@ class Carousel extends React.Component {
 
     constructor() {
         super();
+        this.checkActive = this.checkActive.bind(this);
+        // par défaut le activeSlide est celui qui a la data-target "slide1"
+        this.state = { activeSlide: "slide1" };
     }
+
+
+    checkActive(clickedSlide) {
+        console.log("le slide activé est " + clickedSlide);
+        this.setState({
+            // le activeSlide est celui cliqué (renvoyé par la fonction handleClick de CarouselSlide)
+            activeSlide:clickedSlide
+        });
+    }
+
 
     render() {
        const carouselDatas = [
@@ -122,8 +135,26 @@ class Carousel extends React.Component {
        let carouselList = [];
 
        for (var i = 0; i < carouselDatas.length; i++) {
-        carouselList.push(<CarouselSlide key={"carouselSlides_"+i} target={carouselDatas[i].target} image={carouselDatas[i].image}/>);
+        // si la propriété target correspond, la propriété "classN" prend la valeur "flex-active-slide"
+        if (carouselDatas[i].target == this.state.activeSlide) {
+          carouselList.push(
+            <CarouselSlide
+                handleClassActive={this.checkActive}
+                key={i} target={carouselDatas[i].target}
+                image={carouselDatas[i].image}
+                classN="flex-active-slide"
+            />);
+        // sinon la propriété "classN" est vide
+        } else {
+            carouselList.push(
+            <CarouselSlide
+                handleClassActive={this.checkActive}
+                key={i} target={carouselDatas[i].target}
+                image={carouselDatas[i].image}
+                classN=""
+            />);
         }
+    }
 
     return (
         <div id="carousel">
@@ -139,35 +170,25 @@ class CarouselSlide extends React.Component {
 
     constructor() {
         super();
-
         //Toujours "binder" la fonction de l'événement :  ici le this fait référence à CarouselSlide, le bind sert a indiquer la valeur du this
         this.handleClick = this.handleClick.bind(this);
-        // creation d'un état, nom "flexActive", valeur "false"
-        this.state = { classActive: false };
    }
 
 
    handleClick() {
-      this.setState({
-        classActive: !this.state.flexActive
-    });
+    // on evoie à la propriété "handleClassActive" du parent la "data-target" du li cliqué
+    this.props.handleClassActive(this.props.target);
   }
 
 
   render() {
 
-    var classN;
-    if(this.state.classActive === true) {
-        classN = "flex-active-slide";
-   } else {
-        classN = "";
-   }
 
     return (
         <li
         onClick={this.handleClick}
         data-target={this.props.target}
-        className={classN}>
+        className={this.props.classN}>
         <img src={this.props.image} alt="" />
         </li>
         );
