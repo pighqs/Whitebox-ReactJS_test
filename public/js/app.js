@@ -41,14 +41,23 @@ class Home extends React.Component {
 
     constructor() {
         super();
+        this.activateSlide = this.activateSlide.bind(this);
+        this.state = { selectSlide: "slide1" };
+    }
+
+    activateSlide(cible) {
+        this.setState({
+            // le activeSlide est celui cliqué (renvoyé par la fonction handleClick de CarouselSlide)
+            selectSlide:cible
+        });
     }
 
     render() {
         // App va retourner la "balise" <ListeBurger/>
         return (
             <section id="home" className="padbot0">
-            <Slider/>
-            <Carousel/>
+            <Slider slideActif={this.state.selectSlide}  />
+            <Carousel handleSlideActive={this.activateSlide} />
             </section>
             );
     }
@@ -61,16 +70,31 @@ class Slider extends React.Component {
     }
 
     render() {
+
         const captionDatas = [
-        {liClass:"slide1 flex-active-slide", classPar1: "title1 captionDelay2 FromTop", classPar2:"title2 captionDelay4 FromTop", classPar3:"title3 captionDelay6 FromTop", classPar4:"title4 captionDelay7 FromTop", city: "Lyon", title:"vacances été", year: "2017" , desc: "Vacances au calme dans une petite maison de campagne" },
+        {liClass:"slide1", classPar1: "title1 captionDelay2 FromTop", classPar2:"title2 captionDelay4 FromTop", classPar3:"title3 captionDelay6 FromTop", classPar4:"title4 captionDelay7 FromTop", city: "Lyon", title:"vacances été", year: "2017" , desc: "Vacances au calme dans une petite maison de campagne" },
         {liClass:"slide2", classPar1: "title1 captionDelay6 FromLeft", classPar2:"title2 captionDelay4 FromLeft", classPar3:"title3 captionDelay2 FromLeft", classPar4:"title4 captionDelay7 FromLeft", city: "Sarcelles", title:"weekend de mai", year: "2016" , desc: "Un moment de detente en famille" },
         {liClass:"slide3", classPar1: "title1 captionDelay1 FromBottom", classPar2:"title2 captionDelay2 FromBottom", classPar3:"title3 captionDelay3 FromBottom", classPar4:"title4 captionDelay5 FromBottom", city: "Biarritz", title:"Anniversaire Allan", year: "2016" , desc: "Surf and fun entre amis" }
         ];
 
         let slides = [];
         for (var i = 0; i < captionDatas.length; i++) {
-            slides.push(<Slide key={i} liClass={captionDatas[i].liClass} classPar1={captionDatas[i].classPar1} classPar2={captionDatas[i].classPar2} classPar3={captionDatas[i].classPar3} classPar4={captionDatas[i].classPar4}
-                city={captionDatas[i].city} year={captionDatas[i].year} title={captionDatas[i].title} desc={captionDatas[i].desc}/>);
+            if (captionDatas[i].liClass == this.props.slideActif) {
+                captionDatas[i].liClass = captionDatas[i].liClass + " flex-active-slide";
+            }
+            slides.push(
+                    <Slide
+                        key={i}
+                        liClass={captionDatas[i].liClass}
+                        classPar1={captionDatas[i].classPar1}
+                        classPar2={captionDatas[i].classPar2}
+                        classPar3={captionDatas[i].classPar3}
+                        classPar4={captionDatas[i].classPar4}
+                        city={captionDatas[i].city}
+                        year={captionDatas[i].year}
+                        title={captionDatas[i].title}
+                        desc={captionDatas[i].desc}
+                        />);
 
         }
 
@@ -104,8 +128,6 @@ class Slide extends React.Component {
     }
 }
 
-
-
 class Carousel extends React.Component {
 
     constructor() {
@@ -117,11 +139,12 @@ class Carousel extends React.Component {
 
 
     checkActive(clickedSlide) {
-        console.log("le slide activé est " + clickedSlide);
+        //console.log("le slide activé est " + clickedSlide);
         this.setState({
             // le activeSlide est celui cliqué (renvoyé par la fonction handleClick de CarouselSlide)
             activeSlide:clickedSlide
         });
+        this.props.handleSlideActive(clickedSlide);
     }
 
 
@@ -135,25 +158,21 @@ class Carousel extends React.Component {
        let carouselList = [];
 
        for (var i = 0; i < carouselDatas.length; i++) {
+        var className;
         // si la propriété target correspond, la propriété "classN" prend la valeur "flex-active-slide"
         if (carouselDatas[i].target == this.state.activeSlide) {
-          carouselList.push(
-            <CarouselSlide
-                handleClassActive={this.checkActive}
-                key={i} target={carouselDatas[i].target}
-                image={carouselDatas[i].image}
-                classN="flex-active-slide"
-            />);
-        // sinon la propriété "classN" est vide
+            className = "flex-active-slide";
         } else {
+            className = "";
+        }
             carouselList.push(
             <CarouselSlide
                 handleClassActive={this.checkActive}
                 key={i} target={carouselDatas[i].target}
                 image={carouselDatas[i].image}
-                classN=""
+                classN={className}
             />);
-        }
+
     }
 
     return (
