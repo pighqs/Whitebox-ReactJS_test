@@ -5,12 +5,11 @@ class App extends React.Component {
     }
 
     render() {
-        // App va retourner la "balise" <ListeBurger/>
         return (
-           <div>
-           <Header/>
-           <Home/>
-           </div>
+            <div>
+                <Header/>
+                <Home/>
+            </div>
            );
     }
 }
@@ -22,16 +21,15 @@ class Header extends React.Component {
     }
 
     render() {
-        // App va retourner la "balise" <ListeBurger/>
         return (
             <header>
-            <div className="menu_block">
-            <div className="container clearfix">
-            <div className="logo pull-left">
-            <a href="index.html" ><span className="b1">w</span><span className="b2">h</span><span className="b3">i</span><span className="b4">t</span><span className="b5">e</span> <span className="b4">box</span></a>
-            </div>
-            </div>
-            </div>
+                <div className="menu_block">
+                    <div className="container clearfix">
+                        <div className="logo pull-left">
+                            <a href="index.html" ><span className="b1">w</span><span className="b2">h</span><span className="b3">i</span><span className="b4">t</span><span className="b5">e</span> <span className="b4">box</span></a>
+                        </div>
+                    </div>
+                </div>
             </header>
             );
     }
@@ -56,8 +54,8 @@ class Home extends React.Component {
         // App va retourner la "balise" <ListeBurger/>
         return (
             <section id="home" className="padbot0">
-            <Slider slideActif={this.state.selectSlide}  />
-            <Carousel handleSlideActive={this.activateSlide} />
+                <Slider slideActif={this.state.selectSlide}  />
+                <Carousel handleSlideActive={this.activateSlide} />
             </section>
             );
     }
@@ -82,6 +80,7 @@ class Slider extends React.Component {
             if (captionDatas[i].liClass == this.props.slideActif) {
                 captionDatas[i].liClass = captionDatas[i].liClass + " flex-active-slide";
             }
+
             slides.push(
                     <Slide
                         key={i}
@@ -94,15 +93,15 @@ class Slider extends React.Component {
                         year={captionDatas[i].year}
                         title={captionDatas[i].title}
                         desc={captionDatas[i].desc}
-                        />);
+                    />);
 
         }
 
         return (
          <div className="flexslider top_slider">
-         <ul className="slides">
-         {slides}
-         </ul>
+            <ul className="slides">
+                {slides}
+            </ul>
          </div>
          );
     }
@@ -132,13 +131,13 @@ class Carousel extends React.Component {
 
     constructor() {
         super();
-        this.checkActive = this.checkActive.bind(this);
+        this.checkActiveCarouselSlide = this.checkActiveCarouselSlide.bind(this);
         // par défaut le activeSlide est celui qui a la data-target "slide1"
         this.state = { activeSlide: "slide1" };
     }
 
 
-    checkActive(clickedSlide) {
+    checkActiveCarouselSlide(clickedSlide) {
         //console.log("le slide activé est " + clickedSlide);
         this.setState({
             // le activeSlide est celui cliqué (renvoyé par la fonction handleClick de CarouselSlide)
@@ -167,7 +166,7 @@ class Carousel extends React.Component {
         }
             carouselList.push(
             <CarouselSlide
-                handleClassActive={this.checkActive}
+                handleCarouselActive={this.checkActiveCarouselSlide}
                 key={i} target={carouselDatas[i].target}
                 image={carouselDatas[i].image}
                 classN={className}
@@ -195,8 +194,8 @@ class CarouselSlide extends React.Component {
 
 
    handleClick() {
-    // on evoie à la propriété "handleClassActive" du parent la "data-target" du li cliqué
-    this.props.handleClassActive(this.props.target);
+    // on evoie à la propriété "handleCarouselActive" du parent la "data-target" du li cliqué
+    this.props.handleCarouselActive(this.props.target);
   }
 
 
