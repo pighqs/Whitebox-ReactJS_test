@@ -21,7 +21,6 @@ app.get('/carouselDatas', function(req, res) {
     { target:"slide2", image: "images/slider/slide2_bg.jpg"},
     { target:"slide3", image: "images/slider/slide3_bg.jpg"},
     ];
-    console.log(carouselDatas);
     res.json(carouselDatas);
 });
 
@@ -31,7 +30,6 @@ app.get('/captionDatas', function(req, res) {
         {liClass:"slide2", classPar1: "title1 captionDelay6 FromLeft", classPar2:"title2 captionDelay4 FromLeft", classPar3:"title3 captionDelay2 FromLeft", classPar4:"title4 captionDelay7 FromLeft", city: "Sarcelles", title:"weekend de mai", year: "2016" , desc: "Un moment de detente en famille" },
         {liClass:"slide3", classPar1: "title1 captionDelay1 FromBottom", classPar2:"title2 captionDelay2 FromBottom", classPar3:"title3 captionDelay3 FromBottom", classPar4:"title4 captionDelay5 FromBottom", city: "Biarritz", title:"Anniversaire Allan", year: "2016" , desc: "Surf and fun entre amis" }
         ];
-    console.log(captionDatas);
     res.json(captionDatas);
 });
 

@@ -17,7 +17,6 @@ class Slider extends React.Component {
             return response.json();
         })
         .then(function(data) {
-          console.log(data);
            ctx.setState({captionDatas: data});
         })
         .catch(function(error) {
@@ -27,13 +26,14 @@ class Slider extends React.Component {
 
     render() {
 
+        console.log(this.state.captionDatas);
 
         let slides = [];
         for (var i = 0; i < this.state.captionDatas.length; i++) {
             if (this.state.captionDatas[i].liClass == this.props.slideActif) {
                 var popo = this.state.captionDatas[i].liClass + " flex-active-slide";
             } else {
-                var popo = this.state.captionDatas[i].liClass
+                var popo = this.state.captionDatas[i].liClass;
             }
 
             slides.push(

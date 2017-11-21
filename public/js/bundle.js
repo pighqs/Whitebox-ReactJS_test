@@ -23557,7 +23557,6 @@ var Slider = function (_React$Component) {
             fetch('/captionDatas').then(function (response) {
                 return response.json();
             }).then(function (data) {
-                console.log(data);
                 ctx.setState({ captionDatas: data });
             }).catch(function (error) {
                 console.log('Request failed', error);
@@ -23566,6 +23565,8 @@ var Slider = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+
+            console.log(this.state.captionDatas);
 
             var slides = [];
             for (var i = 0; i < this.state.captionDatas.length; i++) {
@@ -23721,7 +23722,6 @@ var Carousel = function (_React$Component) {
             fetch('/carouselDatas').then(function (response) {
                 return response.json();
             }).then(function (data) {
-                console.log(data);
                 ctx.setState({ carouselDatas: data });
             }).catch(function (error) {
                 console.log('Request failed', error);
@@ -23730,6 +23730,8 @@ var Carousel = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+
+            console.log(this.state.carouselDatas);
 
             var carouselList = [];
 

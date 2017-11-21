@@ -30,7 +30,6 @@ class Carousel extends React.Component {
               return response.json();
           })
           .then(function(data) {
-            console.log(data);
              ctx.setState({carouselDatas: data});
           })
           .catch(function(error) {
@@ -40,6 +39,8 @@ class Carousel extends React.Component {
 
 
     render() {
+
+        console.log(this.state.carouselDatas);
 
        let carouselList = [];
 

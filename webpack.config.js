@@ -1,5 +1,5 @@
 module.exports = {
-  entry: './public/js/script.js',
+  entry: './public/js/components/script.js',
   output: { path: __dirname+"/public/js/", filename: 'bundle.js' },
   module: {
     rules: [
