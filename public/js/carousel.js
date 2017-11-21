@@ -10,9 +10,8 @@ class Carousel extends React.Component {
         super();
         this.checkActiveCarouselSlide = this.checkActiveCarouselSlide.bind(this);
         // par défaut le activeSlide est celui qui a la data-target "slide1"
-        this.state = { activeSlide: "slide1" };
+        this.state = { activeSlide: "slide1", carouselDatas: [] };
     }
-
 
     checkActiveCarouselSlide(clickedSlide) {
         //console.log("le slide activé est " + clickedSlide);
@@ -24,19 +23,30 @@ class Carousel extends React.Component {
     }
 
 
+     componentDidMount(){
+          var ctx = this;
+          fetch('/carouselDatas')
+          .then(function(response) {
+              return response.json();
+          })
+          .then(function(data) {
+            console.log(data);
+             ctx.setState({carouselDatas: data});
+          })
+          .catch(function(error) {
+              console.log('Request failed', error);
+          });
+       }
+
+
     render() {
-       const carouselDatas = [
-       { target:"slide1", image: "images/slider/slide1_bg.jpg"},
-       { target:"slide2", image: "images/slider/slide2_bg.jpg"},
-       { target:"slide3", image: "images/slider/slide3_bg.jpg"},
-       ];
 
        let carouselList = [];
 
-       for (var i = 0; i < carouselDatas.length; i++) {
+       for (var i = 0; i < this.state.carouselDatas.length; i++) {
         var className;
         // si la propriété target correspond, la propriété "classN" prend la valeur "flex-active-slide"
-        if (carouselDatas[i].target == this.state.activeSlide) {
+        if (this.state.carouselDatas[i].target == this.state.activeSlide) {
             className = "flex-active-slide";
         } else {
             className = "";
@@ -44,8 +54,8 @@ class Carousel extends React.Component {
             carouselList.push(
             <CarouselSlide
                 handleCarouselActive={this.checkActiveCarouselSlide}
-                key={i} target={carouselDatas[i].target}
-                image={carouselDatas[i].image}
+                key={i} target={this.state.carouselDatas[i].target}
+                image={this.state.carouselDatas[i].image}
                 classN={className}
             />);
 

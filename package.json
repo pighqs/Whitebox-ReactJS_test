@@ -1,11 +1,10 @@
 {
   "name": "whitebox",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "./node_modules/.bin/webpack & nodemon server.js"
+    "start": "webpack & nodemon server.js"
   },
   "author": "",
   "license": "ISC",
@@ -18,5 +17,18 @@
     "react-dom": "^16.1.1",
     "react-router-dom": "^4.2.2",
     "webpack": "^3.8.1"
-  }
+  },
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.16.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pighqs/Whitebox-ReactJS_test.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pighqs/Whitebox-ReactJS_test/issues"
+  },
+  "homepage": "https://github.com/pighqs/Whitebox-ReactJS_test#readme",
+  "description": ""
 }

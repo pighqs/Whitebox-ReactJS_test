@@ -23544,32 +23544,48 @@ var Slider = function (_React$Component) {
     function Slider() {
         _classCallCheck(this, Slider);
 
-        return _possibleConstructorReturn(this, (Slider.__proto__ || Object.getPrototypeOf(Slider)).call(this));
+        var _this = _possibleConstructorReturn(this, (Slider.__proto__ || Object.getPrototypeOf(Slider)).call(this));
+
+        _this.state = { captionDatas: [] };
+        return _this;
     }
 
     _createClass(Slider, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var ctx = this;
+            fetch('/captionDatas').then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                console.log(data);
+                ctx.setState({ captionDatas: data });
+            }).catch(function (error) {
+                console.log('Request failed', error);
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
 
-            var captionDatas = [{ liClass: "slide1", classPar1: "title1 captionDelay2 FromTop", classPar2: "title2 captionDelay4 FromTop", classPar3: "title3 captionDelay6 FromTop", classPar4: "title4 captionDelay7 FromTop", city: "Lyon", title: "vacances été", year: "2017", desc: "Vacances au calme dans une petite maison de campagne" }, { liClass: "slide2", classPar1: "title1 captionDelay6 FromLeft", classPar2: "title2 captionDelay4 FromLeft", classPar3: "title3 captionDelay2 FromLeft", classPar4: "title4 captionDelay7 FromLeft", city: "Sarcelles", title: "weekend de mai", year: "2016", desc: "Un moment de detente en famille" }, { liClass: "slide3", classPar1: "title1 captionDelay1 FromBottom", classPar2: "title2 captionDelay2 FromBottom", classPar3: "title3 captionDelay3 FromBottom", classPar4: "title4 captionDelay5 FromBottom", city: "Biarritz", title: "Anniversaire Allan", year: "2016", desc: "Surf and fun entre amis" }];
-
             var slides = [];
-            for (var i = 0; i < captionDatas.length; i++) {
-                if (captionDatas[i].liClass == this.props.slideActif) {
-                    captionDatas[i].liClass = captionDatas[i].liClass + " flex-active-slide";
+            for (var i = 0; i < this.state.captionDatas.length; i++) {
+                if (this.state.captionDatas[i].liClass == this.props.slideActif) {
+                    var popo = this.state.captionDatas[i].liClass + " flex-active-slide";
+                } else {
+                    var popo = this.state.captionDatas[i].liClass;
                 }
 
                 slides.push(React.createElement(Slide, {
                     key: i,
-                    liClass: captionDatas[i].liClass,
-                    classPar1: captionDatas[i].classPar1,
-                    classPar2: captionDatas[i].classPar2,
-                    classPar3: captionDatas[i].classPar3,
-                    classPar4: captionDatas[i].classPar4,
-                    city: captionDatas[i].city,
-                    year: captionDatas[i].year,
-                    title: captionDatas[i].title,
-                    desc: captionDatas[i].desc
+                    liClass: popo,
+                    classPar1: this.state.captionDatas[i].classPar1,
+                    classPar2: this.state.captionDatas[i].classPar2,
+                    classPar3: this.state.captionDatas[i].classPar3,
+                    classPar4: this.state.captionDatas[i].classPar4,
+                    city: this.state.captionDatas[i].city,
+                    year: this.state.captionDatas[i].year,
+                    title: this.state.captionDatas[i].title,
+                    desc: this.state.captionDatas[i].desc
                 }));
             }
 
@@ -23684,7 +23700,7 @@ var Carousel = function (_React$Component) {
 
         _this.checkActiveCarouselSlide = _this.checkActiveCarouselSlide.bind(_this);
         // par défaut le activeSlide est celui qui a la data-target "slide1"
-        _this.state = { activeSlide: "slide1" };
+        _this.state = { activeSlide: "slide1", carouselDatas: [] };
         return _this;
     }
 
@@ -23699,24 +23715,36 @@ var Carousel = function (_React$Component) {
             this.props.handleSlideActive(clickedSlide);
         }
     }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var ctx = this;
+            fetch('/carouselDatas').then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                console.log(data);
+                ctx.setState({ carouselDatas: data });
+            }).catch(function (error) {
+                console.log('Request failed', error);
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
-            var carouselDatas = [{ target: "slide1", image: "images/slider/slide1_bg.jpg" }, { target: "slide2", image: "images/slider/slide2_bg.jpg" }, { target: "slide3", image: "images/slider/slide3_bg.jpg" }];
 
             var carouselList = [];
 
-            for (var i = 0; i < carouselDatas.length; i++) {
+            for (var i = 0; i < this.state.carouselDatas.length; i++) {
                 var className;
                 // si la propriété target correspond, la propriété "classN" prend la valeur "flex-active-slide"
-                if (carouselDatas[i].target == this.state.activeSlide) {
+                if (this.state.carouselDatas[i].target == this.state.activeSlide) {
                     className = "flex-active-slide";
                 } else {
                     className = "";
                 }
                 carouselList.push(React.createElement(CarouselSlide, {
                     handleCarouselActive: this.checkActiveCarouselSlide,
-                    key: i, target: carouselDatas[i].target,
-                    image: carouselDatas[i].image,
+                    key: i, target: this.state.carouselDatas[i].target,
+                    image: this.state.carouselDatas[i].image,
                     classN: className
                 }));
             }
