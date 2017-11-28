@@ -2386,6 +2386,7 @@ var ReactDOM = __webpack_require__(38);
 // ROUTER
 var Router = __webpack_require__(15).BrowserRouter;
 var Route = __webpack_require__(15).Route;
+var Link = __webpack_require__(15).Link;
 
 var App = __webpack_require__(75);
 
@@ -23387,7 +23388,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var React = __webpack_require__(0);
-var Link = __webpack_require__(15).Link;
 
 var Header = function (_React$Component) {
     _inherits(Header, _React$Component);
@@ -23399,53 +23399,53 @@ var Header = function (_React$Component) {
     }
 
     _createClass(Header, [{
-        key: 'render',
+        key: "render",
         value: function render() {
             return React.createElement(
-                'header',
+                "header",
                 null,
                 React.createElement(
-                    'div',
-                    { className: 'menu_block' },
+                    "div",
+                    { className: "menu_block" },
                     React.createElement(
-                        'div',
-                        { className: 'container clearfix' },
+                        "div",
+                        { className: "container clearfix" },
                         React.createElement(
-                            'div',
-                            { className: 'logo pull-left' },
+                            "div",
+                            { className: "logo pull-left" },
                             React.createElement(
-                                Link,
-                                { to: '/' },
+                                "a",
+                                { href: "/" },
                                 React.createElement(
-                                    'span',
-                                    { className: 'b1' },
-                                    'w'
+                                    "span",
+                                    { className: "b1" },
+                                    "w"
                                 ),
                                 React.createElement(
-                                    'span',
-                                    { className: 'b2' },
-                                    'h'
+                                    "span",
+                                    { className: "b2" },
+                                    "h"
                                 ),
                                 React.createElement(
-                                    'span',
-                                    { className: 'b3' },
-                                    'i'
+                                    "span",
+                                    { className: "b3" },
+                                    "i"
                                 ),
                                 React.createElement(
-                                    'span',
-                                    { className: 'b4' },
-                                    't'
+                                    "span",
+                                    { className: "b4" },
+                                    "t"
                                 ),
                                 React.createElement(
-                                    'span',
-                                    { className: 'b5' },
-                                    'e'
+                                    "span",
+                                    { className: "b5" },
+                                    "e"
                                 ),
-                                ' ',
+                                " ",
                                 React.createElement(
-                                    'span',
-                                    { className: 'b4' },
-                                    'box'
+                                    "span",
+                                    { className: "b4" },
+                                    "box"
                                 )
                             )
                         )

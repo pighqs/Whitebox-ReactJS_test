@@ -2,6 +2,16 @@
 var express = require('express');
 // on stocke l'app express dans une variable app : initialisation
 var app = express();
+//Execution de Babel sur le serveur
+require('babel-core/register')({
+    presets: ["react", "es2015"]
+});
+//modules React
+var React          = require('react');
+var ReactDOMServer = require('react-dom/server');
+var RouterBack     = React.createFactory(require('./public/js/components/app'));
+
+//Importer le composant principal sur le serveur
 
 app.set('view engine', 'ejs');
 
@@ -9,8 +19,9 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 app.get('/', function(req, res) {
-
-    res.render('index');
+    // Convertir le composant en chaîne de caractère
+    var ComponentAppHTML = ReactDOMServer.renderToString(RouterBack());
+    res.render('index', { appFromServer : ComponentAppHTML });
 
 });
 
